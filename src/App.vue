@@ -1,20 +1,22 @@
 <template>
     <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <rummy-header>Header</rummy-header>
+        <p></p>
+        <router-view>view</router-view>
+
     </div>
 </template>
 
 <script>
     import 'bootstrap';
     import 'bootstrap/dist/css/bootstrap.min.css'
-    import HelloWorld from './components/HelloWorld.vue'
-
+    import RummyHeader from "@/components/RummyHeader";
+    
 
     export default {
         name: 'app',
         components: {
-            HelloWorld
+            'rummy-header': RummyHeader
         }
     }
 </script>
@@ -26,6 +28,5 @@
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: #2c3e50;
-        margin-top: 60px;
     }
 </style>
