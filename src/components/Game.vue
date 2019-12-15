@@ -13,7 +13,7 @@
             <h2>The Desk</h2>
             <desk/>
             <h2>The Board</h2>
-            <board/>
+            <board v-if="this.state === 'P_TURN'"/>
         </div>
     </div>
 </template>
@@ -31,7 +31,8 @@
                 desk: {
                     sets: [],
                     players: []
-                }
+                },
+                state: String
             }
         },
         components: {
@@ -42,8 +43,9 @@
         },
         created() {
             this.$options.sockets.onmessage = (data) => {
-                window.console.log("game", data);
-                this.desk = JSON.parse(data.data).desk
+                const result = JSON.parse(data.data);
+                this.desk = result.desk;
+                this.state = result.state;
             };
             this.$socket.send(JSON.stringify({type: 'json'}))
         }

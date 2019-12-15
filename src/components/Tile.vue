@@ -1,8 +1,8 @@
 <template>
     <div class="mx-1 align-content-center text-center tileStyle"
-         v-bind:class="determineColorOfTile">
+         v-bind:class="this.color.toLowerCase() + 'Tile'">
         <h3 class="text-white">{{this.num}}</h3>
-        <button class="btn btn-link" v-on:click="layDown">Down</button>
+        <button class="btn btn-link" v-on:click="click()">Select</button>
     </div>
 </template>
 
@@ -12,16 +12,24 @@
         props: {
             num: Number,
             color: String,
-            ident: Number
+            ident: Number,
+            layDownOrMove: Boolean
         },
         methods: {
-            determineColorOfTile: () => {
-                return this.color.toLowerCase() + 'tile';
+            layDown: function()  {
+                this.$socket.send(JSON.stringify({type: "laydownTile", tile: this.determineTileId()}))
             },
-            layDown: () => {
-                this.$socket.send(JSON.stringify({type: "laydownTile", tile: this.determineTileId}))
+            move: function()  {
+                this.$socket.send(JSON.stringify({type: "moveTile", tile: this.determineTileId()}))
             },
-            determineTileId: () => {
+            click: function()  {
+                if (this.layDownOrMove) {
+                    this.layDown();
+                } else {
+                    this.move();
+                }
+            },
+            determineTileId: function() {
                 return this.num + this.color[0] + this.ident
             }
         }
@@ -34,6 +42,8 @@
         border-radius: 7px;
         padding: 10px 5px;
         margin: 5px;
+        width: 77px;
+        height: 100px;
     }
 
     .greenTile {

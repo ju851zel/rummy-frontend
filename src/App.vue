@@ -1,9 +1,8 @@
 <template>
     <div id="app">
         <rummy-header>Header</rummy-header>
-        <p></p>
+        <p/>
         <router-view>view</router-view>
-
     </div>
 </template>
 

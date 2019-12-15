@@ -2,17 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router';
 import VueNativeSock from 'vue-native-websocket'
+import UUID from 'vue-uuid';
 import Game from './components/Game'
 import Rules from './components/Rules'
 
 Vue.config.productionTip = false;
 
+Vue.use(UUID);
 Vue.use(VueRouter);
-Vue.use(VueNativeSock, 'ws://localhost:9000/socket', {
-  reconnection: true, // (Boolean) whether to reconnect automatically (false)
-  reconnectionAttempts: 20, // (Number) number of reconnection attempts before giving up (Infinity),
-  reconnectionDelay: 1000, // (Number) how long to initially wait before attempting a new (1000)
-});
+Vue.use(VueNativeSock, 'ws://localhost:9000/socket', { format: 'json' });
+
 
 const routes = [
   {path: '/', component: Game },

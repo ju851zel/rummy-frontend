@@ -20,7 +20,6 @@
         },
         created() {
             this.$options.sockets.onmessage = (data) => {
-                window.console.log("news");
                 this.news = JSON.parse(data.data).news;
                 this.todo = JSON.parse(data.data).todo
             };

@@ -1,13 +1,16 @@
 <template>
     <div>
-        <div class="container col-md-12" id="desk" v-bind:key="t" v-for="t in tiles">
-            <tile :num="1"  color="Y" :ident="1"/>
+        <div class="row col-md-12" v-bind:key="set + uuid.v1()" v-for="set in sets">
+            <div class="my-4" v-bind:key="t + uuid.v1()" v-for="t in set.struct">
+                    <tile :lay-down-or-move=false :num="t.value" :color="t.color" :ident="t.ident"/>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import Tile from '@/components/Tile'
+    import {uuid} from 'vue-uuid';
 
     export default {
         name: "Desk",
@@ -16,13 +19,13 @@
         },
         data() {
             return {
-                tiles: null
+                uuid,
+                sets: []
             }
         },
         created() {
             this.$options.sockets.onmessage = (data) => {
-                window.console.log("game", JSON.parse(data.data).desk.players.filter((out) => out.state === 'TURN').board);
-                this.tiles = JSON.parse(data.data).desk.players.find((out) => out.state === 'TURN').board // todo move to board
+                this.sets = JSON.parse(data.data).desk.sets
             };
             this.$socket.send(JSON.stringify({type: 'json'}))
         }
