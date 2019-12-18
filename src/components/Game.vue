@@ -10,10 +10,10 @@
             <hr>
         </div>
         <div class="container">
-            <h2>The Desk</h2>
-            <desk/>
-            <h2>The Board</h2>
-            <board v-if="this.state === 'P_TURN'"/>
+            <h2 v-if="this.state === 'P_TURN'">The Desk</h2>
+            <desk v-if="this.state === 'P_TURN'" :sets="sets"/>
+            <h2 v-if="this.state === 'P_TURN'">The Board</h2>
+            <board v-if="this.state === 'P_TURN'" :tiles="boardTiles"/>
         </div>
     </div>
 </template>
@@ -28,10 +28,8 @@
         name: 'Game',
         data() {
             return {
-                desk: {
-                    sets: [],
-                    players: []
-                },
+                sets: [],
+                boardTiles: [],
                 state: String
             }
         },
@@ -41,13 +39,21 @@
             interaction: Interaction,
             info: Info
         },
-        created() {
-            this.$options.sockets.onmessage = (data) => {
-                const result = JSON.parse(data.data);
-                this.desk = result.desk;
-                this.state = result.state;
-            };
-            this.$socket.send(JSON.stringify({type: 'json'}))
+        created: function() {
+            this.loadData();
+        }, methods: {
+            loadData: function () {
+                this.$nextTick(() => {
+                    this.$options.sockets.onmessage = (data) => {
+                        const result = JSON.parse(data.data);
+                        this.sets = result.desk.sets;
+                        this.state = result.state;
+                        this.boardTiles = result.desk.players.find((out) => out.state === 'TURN').board
+                    };
+                    this.$socket.send(JSON.stringify({type: "json"}))
+                })
+
+            }
         }
     }
 </script>

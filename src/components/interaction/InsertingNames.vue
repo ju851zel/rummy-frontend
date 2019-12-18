@@ -14,7 +14,7 @@
             addPlayer() {
                 this.$socket.send(JSON.stringify({
                     type: "addPlayersName",
-                    name: document.getElementById("input-name").innerText
+                    name: document.getElementById("input-name").value
                 }))
             },
             finishedAddingPlayer() {

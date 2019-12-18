@@ -3,6 +3,7 @@
         <rummy-header>Header</rummy-header>
         <p/>
         <router-view>view</router-view>
+        <p style="margin-bottom: 75px"/>
     </div>
 </template>
 

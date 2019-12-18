@@ -30,7 +30,6 @@
             this.$options.sockets.onmessage = (data) => {
                 this.state = JSON.parse(data.data).state
             };
-            this.$socket.send(JSON.stringify({type: 'json'}))
         }
 
     }
