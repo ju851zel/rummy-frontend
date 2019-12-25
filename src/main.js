@@ -7,6 +7,7 @@ import Game from './components/Game'
 import Rules from './components/Rules'
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import './registerServiceWorker'
 
 
 
