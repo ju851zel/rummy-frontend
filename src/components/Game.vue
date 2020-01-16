@@ -45,6 +45,7 @@
             loadData: function () {
                 this.$nextTick(() => {
                     this.$options.sockets.onmessage = (data) => {
+                        window.console.log(data);
                         const result = JSON.parse(data.data);
                         this.sets = result.desk.sets;
                         this.state = result.state;
