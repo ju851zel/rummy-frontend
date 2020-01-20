@@ -19,26 +19,30 @@ Vue.config.productionTip = false;
 
 Vue.use(UUID);
 Vue.use(VueRouter);
-Vue.use(VueNativeSock, 'ws://localhost:9000/socket', {
+Vue.use(VueNativeSock, 'ws://rummy-backend.herokuapp.com/socket', {
     reconnection: true, // (Boolean) whether to reconnect automatically (false)
-    reconnectionAttempts: 5, // (Number) number of reconnection attempts before giving up (Infinity),
-    reconnectionDelay: 3000, // (Number) how long to initially wait before attempting a new (1000)
+    reconnectionAttempts: 1000000000, // (Number) number of reconnection attempts before giving up (Infinity),
+    reconnectionDelay: 10, // (Number) how long to initially wait before attempting a new (1000)
 });
 Vue.use(Toast, {});
-
 
 
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        {path: '/', name: "Game", component: Game, beforeEnter: (to, from, next) => {
-                if (store.getters.loggedIn === false) {
+        {
+            // eslint-disable-next-line no-unused-vars
+            path: '/', name: "Game", component: Game, beforeEnter: (to, from, next) => {
+                if (store.getters.user.loggedIn === false) {
+                    window.console.log("NOT Logged in");
                     next("/login");
                 } else {
+                    window.console.log("store:", store);
                     next()
                 }
-            }},
-        {path: '/rules',name: 'Rules',  component: Rules},
+            }
+        },
+        {path: '/rules', name: 'Rules', component: Rules},
         {path: '/login', name: 'Login', component: Login},
         {path: '/register', name: 'Register', component: Register},
         {path: '/dashboard', name: 'Dashboard', component: Dashboard}
@@ -65,5 +69,5 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 firebase.auth().onAuthStateChanged(user => {
-  store.dispatch("fetchUser", user);
+    store.dispatch("fetchUser", user);
 });

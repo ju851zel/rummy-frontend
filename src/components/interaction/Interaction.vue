@@ -26,8 +26,11 @@
                 state: String
             }
         },
-        created() {
+        mounted() {
+            window.console.log("Created Menustate:", this.state);
+            this.$socket.send(JSON.stringify({type: "state"}));
             this.$options.sockets.onmessage = (data) => {
+                window.console.log("Menu message came in, state:");
                 this.state = JSON.parse(data.data).state
             };
         }

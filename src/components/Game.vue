@@ -38,9 +38,6 @@
             desk: Desk,
             interaction: Interaction,
             info: Info
-        },
-        created: function() {
-            this.loadData();
         }, methods: {
             loadData: function () {
                 this.$nextTick(() => {
@@ -55,6 +52,9 @@
                 })
 
             }
+        },
+        created: function () {
+            this.loadData();
         }
     }
 </script>

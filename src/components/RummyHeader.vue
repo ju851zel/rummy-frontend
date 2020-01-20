@@ -1,15 +1,16 @@
 <template>
     <div>
         <nav class="navbar navbar-dark navbar-expand-sm bg-dark">
-            <a class="navbar-brand" href="/">Rummy</a>
+<!--            <a class="navbar-brand" href="/">Rummy</a>-->
+            <router-link class="navbar-brand" to="/">Rummy</router-link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"/>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <a class="mr-3" href="/">Game</a>
-<!--                    <router-link class="mr-3" to="/">Game</router-link>-->
+<!--                    <a class="mr-3" href="/">Game</a>-->
+                    <router-link class="mr-3" to="/">Game</router-link>
                     <router-link class="mr-3" to="/rules">Rules</router-link>
                 </ul>
 

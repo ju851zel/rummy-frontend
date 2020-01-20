@@ -44,7 +44,9 @@
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">Login</button>
                                 </div>
-                                <a type="submit" class="m-4" v-on:click="resetPassword()"><u>Forget Password</u></a>
+                                <a type="submit" class="m-4" v-on:click="resetPassword()"><u>Forgot Password</u></a>
+                                <a type="submit" class="m-4" v-on:click="resetPassword()"><u>Reset Password</u></a>
+                                <a type="submit" class="m-4" v-on:click="useGoogle()"><u>Use Google</u></a>
                             </div>
                         </form>
                     </div>
@@ -76,19 +78,19 @@
                     .auth()
                     .signInWithEmailAndPassword(this.form.email, this.form.password)
                     .then(data => {
-                        this.$router.replace({name: "Dashboard"});
-                        window.console.log(data);
                         this.error.success = true;
+                        window.console.log(data);
+                        this.$router.replace({name: "Dashboard"});
                     })
                     .catch(err => {
-                        window.console.log(err);
+                        window.console.log("Could not log in: err");
                         this.error.success = false;
                         this.error.message = err.message;
                     });
             },
             resetPassword() {
                 const mythis = this;
-                firebase.auth().onAuthStateChanged(function(user) {
+                firebase.auth().onAuthStateChanged(function (user) {
                     if (user) {
                         //s
                     } else {
@@ -100,6 +102,19 @@
                             mythis.error.success = false;
                         })
                     }
+                });
+            },
+            useGoogle() {
+                const mythis = this;
+                const provider = new firebase.auth.GoogleAuthProvider();
+                // eslint-disable-next-line no-unused-vars
+                firebase.auth().signInWithPopup(provider).then(function(result) {
+                    mythis.error.success = true;
+                    mythis.error.message = "Sucessfully logged in with google";
+                }).catch(function(error) {
+                    mythis.error.message = error.message;
+                    mythis.error.success = false;
+
                 });
             }
         }
