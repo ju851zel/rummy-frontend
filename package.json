@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "babel-node tools/build.js && npm run open:dist",
+    "heroku-prebuild": "",
+    "heroku-postbuild": "babel-node tools/build.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
