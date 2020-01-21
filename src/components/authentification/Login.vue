@@ -40,14 +40,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">Login</button>
+                            <div class="form-group row mb-4">
+                                <div class="col-md-12 offset-md-1">
+                                    <button type="submit" class="btn btn-primary mr-0">Login</button>
+                                    <img type="submit"  src="../../assets/google_badge.png" v-on:click="useGoogle()" width="200px" >
                                 </div>
-                                <a type="submit" class="m-4" v-on:click="resetPassword()"><u>Forgot Password</u></a>
-                                <a type="submit" class="m-4" v-on:click="resetPassword()"><u>Reset Password</u></a>
-                                <a type="submit" class="m-4" v-on:click="useGoogle()"><u>Use Google</u></a>
                             </div>
+                            <a type="submit" class="m-4" v-on:click="resetPassword()"><u>Reset Password</u></a>
+                            <a type="submit" class="m-4" v-on:click="resetPassword()"><u>Forgot Password</u></a>
                         </form>
                     </div>
                 </div>
@@ -97,6 +97,7 @@
                         firebase.auth().sendPasswordResetEmail(mythis.form.email).then(function () {
                             mythis.error.message = "Successfully send password reset mail";
                             mythis.error.success = true;
+                            this.$router.push("/");
                         }).catch(function (error) {
                             mythis.error.message = error.message;
                             mythis.error.success = false;
@@ -108,10 +109,10 @@
                 const mythis = this;
                 const provider = new firebase.auth.GoogleAuthProvider();
                 // eslint-disable-next-line no-unused-vars
-                firebase.auth().signInWithPopup(provider).then(function(result) {
+                firebase.auth().signInWithPopup(provider).then(function (result) {
                     mythis.error.success = true;
                     mythis.error.message = "Sucessfully logged in with google";
-                }).catch(function(error) {
+                }).catch(function (error) {
                     mythis.error.message = error.message;
                     mythis.error.success = false;
 
