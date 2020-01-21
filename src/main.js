@@ -19,9 +19,10 @@ Vue.config.productionTip = false;
 
 Vue.use(UUID);
 Vue.use(VueRouter);
-Vue.use(VueNativeSock, 'wss://rummy-backend.herokuapp.com/socket', {
+// Vue.use(VueNativeSock, 'wss://rummy-backend.herokuapp.com/socket', {
+Vue.use(VueNativeSock, 'ws://localhost:9000/socket', {
     reconnection: true, // (Boolean) whether to reconnect automatically (false)
-    reconnectionAttempts: 1000000000, // (Number) number of reconnection attempts before giving up (Infinity),
+    reconnectionAttempts: Infinity, // (Number) number of reconnection attempts before giving up (Infinity),
     reconnectionDelay: 10, // (Number) how long to initially wait before attempting a new (1000)
 });
 Vue.use(Toast, {});

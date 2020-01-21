@@ -38,23 +38,16 @@
             desk: Desk,
             interaction: Interaction,
             info: Info
-        }, methods: {
-            loadData: function () {
-                this.$nextTick(() => {
-                    this.$options.sockets.onmessage = (data) => {
-                        window.console.log(data);
-                        const result = JSON.parse(data.data);
-                        this.sets = result.desk.sets;
-                        this.state = result.state;
-                        this.boardTiles = result.desk.players.find((out) => out.state === 'TURN').board
-                    };
-                    this.$socket.send(JSON.stringify({type: "json"}))
-                })
-
-            }
         },
-        created: function () {
-            this.loadData();
+        created() {
+            this.$options.sockets.onmessage = (data) => {
+                window.console.log("Came in: ", data);
+                const result = JSON.parse(data.data);
+                this.sets = result.desk.sets;
+                this.state = result.state;
+                this.boardTiles = result.desk.players.find((out) => out.state === 'TURN').board
+            };
+            this.$socket.send(JSON.stringify({type: "json"}))
         }
     }
 </script>
