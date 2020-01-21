@@ -21,20 +21,9 @@
             'player-turn': PlayerTurn,
             'next-player': NextPlayer
         },
-        data() {
-            return {
-                state: String
-            }
-        },
-        mounted() {
-            window.console.log("Created Menustate:", this.state);
-            this.$socket.send(JSON.stringify({type: "state"}));
-            this.$options.sockets.onmessage = (data) => {
-                window.console.log("Menu message came in, state:");
-                this.state = JSON.parse(data.data).state
-            };
+        props: {
+          state: String
         }
-
     }
 
 </script>
