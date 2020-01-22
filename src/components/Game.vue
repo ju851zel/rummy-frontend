@@ -42,6 +42,7 @@
             info: Info
         },
         created() {
+            this.todoMessage = "No Communication with backend possible";
             this.$options.sockets.onmessage = (data) => {
                 const result = JSON.parse(data.data);
                 window.console.log("Came in: ", result);
