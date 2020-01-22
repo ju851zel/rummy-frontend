@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            <info :todo="this.todoMessage" :news="this.newsMessage"/>
+            <info v-bind:todo="this.todoMessage"/>
         </div>
 
         <div class="container">
@@ -32,7 +32,6 @@
                 sets: [],
                 boardTiles: [],
                 state: String,
-                newsMessage: String,
                 todoMessage: String
             }
         },
@@ -48,10 +47,14 @@
                 window.console.log("Came in: ", result);
                 this.sets = result.desk.sets;
                 this.state = result.state;
-                this.boardTiles = result.desk.players.find((out) => out.state === 'TURN').board;
-                this.newsMessage = result.news;
+                const pl = result.desk.players.find((out) => out.state === 'TURN');
+                if (pl) {
+                this.boardTiles = pl.board;
+                } else {
+                    this.boardTiles = []
+                }
                 this.todoMessage = result.todo;
-                this.$toast(this.newsMessage, {
+                this.$toast(result.news, {
                     timeout: 2000,
                 });
             };

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.f8184aad454bb8920d326196e710cc90.js"
+  "/precache-manifest.f642d301b46a55cb8ffe385efb8755bb.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "rummy-frontend"});
